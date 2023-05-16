@@ -9,7 +9,7 @@ async def echo(websocket, path):
         print(f"Received message: {message}")
 
 start_server = websockets.serve(
-    echo, "0.0.0.0", os.environ.get("PORT", 8765))
+    echo, "0.0.0.0", os.environ.get("PORT", 3000))
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
