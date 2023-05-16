@@ -5,6 +5,10 @@ from websockets.server import serve
 
 async def echo(websocket):
     async for message in websocket:
+        try:
+            await websocket.send(message)
+        except Exception as e:
+            print(e)
         print(f"received: {message}")
 
 
