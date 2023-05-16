@@ -5,7 +5,7 @@ from websockets.server import serve
 
 async def echo(websocket):
     async for message in websocket:
-        await websocket.send(message)
+        print(f"received: {message}")
 
 
 async def main():
