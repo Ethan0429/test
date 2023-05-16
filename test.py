@@ -1,15 +1,17 @@
-# server.py
-import asyncio
-import websockets
 import os
+import asyncio
+from websockets.server import serve
 
 
-async def echo(websocket, path):
+async def echo(websocket):
     async for message in websocket:
-        print(f"Received message: {message}")
+        await websocket.send(message)
 
-start_server = websockets.serve(
-    echo, "0.0.0.0", os.environ.get("PORT", 3000))
 
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+async def main():
+    port = os.getenv("PORT", "3000")
+    async with serve(echo, "0.0.0.0", port):
+        print(f"running websocket server on port {port}")
+        await asyncio.Future()  # run forever
+
+asyncio.run(main())
